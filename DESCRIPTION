@@ -1,0 +1,23 @@
+Package: cbal
+Title: Covariate Balancing Weights using Generalized Projections of Bregman Distances
+Version: 0.1.7
+Authors@R:
+    c(person("Kevin", "Josey", email = "kevin.josey@ucdenver.edu", role = c("aut", "cre")),
+      person("Juarez-Colunga", "Elizabeth", email = "elizabeth.juarez-colunga@ucdenver.edu", role = c("ths")),
+      person("Debashis", "Ghosh", email = "debashis.ghosh@ucdenver.edu", role = c("ths")))
+Description: Estimates covariate balancing weights using the generalized projection of a Bregman distance
+    into a linear subspace that satisfy a set of equality constraints.
+Depends:
+    R (>= 3.5.0)
+License: GPL (>= 2)
+Encoding: UTF-8
+URL: https://github.com/kevjosey/cbal/
+LazyData: yes
+LazyLoad: yes
+NeedsCompilation: no
+Suggests:
+    ATE,
+    knitr,
+    survey
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
