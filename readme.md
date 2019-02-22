@@ -40,8 +40,8 @@ install_github("kevjosey/cbal", build_vignettes = TRUE)
 make install
 ```
 
-3. Go to the [release page](https://github.com/kevjosey/cbal/releases) and down
-   load the tar.gz file of the version you want to install.
+3. Go to the [release page](https://github.com/kevjosey/cbal/releases) and download 
+the tar.gz file of the version you want to install.
 
   * Install from the command line
 
