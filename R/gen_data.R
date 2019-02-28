@@ -2,14 +2,14 @@
 #'
 #' The \code{ks_data()} function generates a dataset according to the experimental scenarios that appear in
 #' Kang and Schafer (2007). These scenarios are useful for evauluating different covariate 
-#' balancing methods under treatment and/or outcome model mispecification.
+#' balancing methods under treatment and/or outcome model misspecification.
 #'
-#' @param tau the causal effect to be estimated.
-#' @param n the sample size.
-#' @param sig2 the marginal error variance of the potential outcomes. We assume heteroscedasticity.
+#' @param tau the homogeneous causal effect to be estimated.
+#' @param n the total sample size.
+#' @param sig2 the marginal error variance of the potential outcomes. We assume homoscedasticity.
 #' @param rho the correlation coefficient between the potential outcomes.
-#' @param y_scen the outcome scenario. Can be either \code{c("a", "b")}
-#' @param z_scen the treatment assignment scenario. Can be either  \code{c("a", "b")}
+#' @param y_scen the outcome scenario. Can be either \code{c("a", "b")}.
+#' @param z_scen the treatment assignment scenario. Can be either \code{c("a", "b")}.
 #'
 #' @references
 #' 

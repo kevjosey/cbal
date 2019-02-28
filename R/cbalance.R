@@ -11,13 +11,13 @@
 #' Oxford University Press.
 #'
 #' @param formula an object of class formula: a symbolic description of the model to be fitted.
-#' @param data a \code{data.frame}, list or environment containing the variables in the model.
+#' @param data a \code{data.frame}, list, or environment containing the variables in the model.
 #' @param estimand the assumed causal effect estimand. Can either be "ATE" for the average treatment effect,
 #' "ATT" for the average treatment effect of the treated, or "ATC" for the average treatment effect of the controls.
 #' @param distance the Bregman distance to be optimized. Can either be "entropy" for the relative entropy,
 #' "binary" for the binary relative entropy, or "shifted" for the shifted relative entropy.
 #' @param base_weights a vector of optional sampling weights with length equal to the
-#' number of rows in \code{constr_mat} or \code{data}.
+#' number of rows in \code{data} or \code{constr_mat}.
 #' @param coefs_init initial values for the Lagrangian multipliers.
 #' @param control a list of arguments that will be passed to \code{optim}.
 #' @param ... additional arguments.
@@ -86,8 +86,8 @@ cbalance <- function(formula,
   
 }
 
-#' @param constr_mat a matrix that forms the basis of a linear subspace where the equality constraints of the
-#' convex program exist.
+#' @param constr_mat a matrix that forms the basis of a linear subspace which defines the equality 
+#' constraints of the convex program.
 #' @param target_margins the target margins of the linear equality constraints. This vector
 #' should have a length equal to the number of columns in \code{constr_mat}.
 #' 

@@ -6,9 +6,9 @@
 #'
 #' Use \code{lagrange_sent} for the shifted unnormalized relative entropyl
 #'
-#' @param coefs vector of Lagrange multipliers.
-#' @param constr_mat a matrix that determines the basis of a linear subspace where the equality constraints of the
-#' optimization lie.
+#' @param coefs vector of Lagrangian multipliers.
+#' @param constr_mat a matrix that determines the basis of a linear subspace which defines the 
+#' linear equality constraints of the convex program.
 #' @param target_margins the target margins of the linear equality constraints. This vector 
 #' should have a length equal to the number of columns in \code{constr_mat}.
 #' @param base_weights a vector of optional sampling weights with length equal to the 

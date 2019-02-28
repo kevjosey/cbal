@@ -16,7 +16,7 @@ cbalance.fit(constr_mat, target_margins, distance = c("entropy",
 \arguments{
 \item{formula}{an object of class formula: a symbolic description of the model to be fitted.}
 
-\item{data}{a \code{data.frame}, list or environment containing the variables in the model.}
+\item{data}{a \code{data.frame}, list, or environment containing the variables in the model.}
 
 \item{estimand}{the assumed causal effect estimand. Can either be "ATE" for the average treatment effect,
 "ATT" for the average treatment effect of the treated, or "ATC" for the average treatment effect of the controls.}
@@ -25,7 +25,7 @@ cbalance.fit(constr_mat, target_margins, distance = c("entropy",
 "binary" for the binary relative entropy, or "shifted" for the shifted relative entropy.}
 
 \item{base_weights}{a vector of optional sampling weights with length equal to the
-number of rows in \code{constr_mat} or \code{data}.}
+number of rows in \code{data} or \code{constr_mat}.}
 
 \item{coefs_init}{initial values for the Lagrangian multipliers.}
 
@@ -33,8 +33,8 @@ number of rows in \code{constr_mat} or \code{data}.}
 
 \item{...}{additional arguments.}
 
-\item{constr_mat}{a matrix that forms the basis of a linear subspace where the equality constraints of the
-convex program exist.}
+\item{constr_mat}{a matrix that forms the basis of a linear subspace which defines the equality 
+constraints of the convex program.}
 
 \item{target_margins}{the target margins of the linear equality constraints. This vector
 should have a length equal to the number of columns in \code{constr_mat}.}

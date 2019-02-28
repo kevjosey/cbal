@@ -7,22 +7,22 @@
 ks_data(tau, n, sig2, rho, y_scen = c("a", "b"), z_scen = c("a", "b"))
 }
 \arguments{
-\item{tau}{the causal effect to be estimated.}
+\item{tau}{the homogeneous causal effect to be estimated.}
 
-\item{n}{the sample size.}
+\item{n}{the total sample size.}
 
-\item{sig2}{the marginal error variance of the potential outcomes. We assume heteroscedasticity.}
+\item{sig2}{the marginal error variance of the potential outcomes. We assume homoscedasticity.}
 
 \item{rho}{the correlation coefficient between the potential outcomes.}
 
-\item{y_scen}{the outcome scenario. Can be either \code{c("a", "b")}}
+\item{y_scen}{the outcome scenario. Can be either \code{c("a", "b")}.}
 
-\item{z_scen}{the treatment assignment scenario. Can be either  \code{c("a", "b")}}
+\item{z_scen}{the treatment assignment scenario. Can be either \code{c("a", "b")}.}
 }
 \description{
 The \code{ks_data()} function generates a dataset according to the experimental scenarios that appear in
 Kang and Schafer (2007). These scenarios are useful for evauluating different covariate 
-balancing methods under treatment and/or outcome model mispecification.
+balancing methods under treatment and/or outcome model misspecification.
 }
 \references{
 Kang, J. D., & Schafer, J. L. (2007). Demystifying double robustness: A

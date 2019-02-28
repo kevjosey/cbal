@@ -14,10 +14,10 @@ lagrange_bent(coefs, constr_mat, target_margins, base_weights)
 lagrange_sent(coefs, constr_mat, target_margins, base_weights)
 }
 \arguments{
-\item{coefs}{vector of Lagrange multipliers.}
+\item{coefs}{vector of Lagrangian multipliers.}
 
-\item{constr_mat}{a matrix that determines the basis of a linear subspace where the equality constraints of the
-optimization lie.}
+\item{constr_mat}{a matrix that determines the basis of a linear subspace which defines the 
+linear equality constraints of the convex program.}
 
 \item{target_margins}{the target margins of the linear equality constraints. This vector 
 should have a length equal to the number of columns in \code{constr_mat}.}
