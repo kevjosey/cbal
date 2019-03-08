@@ -28,7 +28,6 @@ cbalance <- function(formula,
                      estimand = c("ATE", "ATT", "ATC"),
                      distance = c("entropy", "binary", "shifted"),
                      base_weights = NULL,
-                     coefs_init = NULL,
                      control = list(maxit = 500, reltol = 1e-10), 
                      ...) {
   
@@ -42,7 +41,7 @@ cbalance <- function(formula,
   
   # error checks
   if(nlevels(y) != 2L)
-    stop(paste("nlevels(y) != 2\nnlevels =", nlevels(y)))
+    stop(paste("nlevels(y) != 2\nnlevels = ", nlevels(y)))
   
   if (!(estimand %in% c("ATE", "ATT", "ATC")))
     stop("estimand must be either \"ATE\", \"ATT\", or \"ATC\"")
@@ -56,7 +55,9 @@ cbalance <- function(formula,
     else # distance == "entropy"
       base_weights <- rep(1, nrow(X))
     
-  } else if (length(base_weights) != nrow(X))
+  } 
+  
+  else if (length(base_weights) != nrow(X))
     stop("length(base_weights) != sample size")
   
   if (estimand == "ATT") {
@@ -79,7 +80,6 @@ cbalance <- function(formula,
   cbalance.fit(constr_mat = constr_mat,
                target_margins = target_margins,
                base_weights = base_weights,
-               coefs_init = coefs_init,
                distance = distance,
                control = control,
                ...)
@@ -158,7 +158,7 @@ cbalance.fit <- function(constr_mat,
   if (!converged)
     warning("model failed to converge")
 
-  class(out) <- "cbalance"
+  class(out) <- "cbalance.fit"
   return(out)
 
 }
