@@ -7,7 +7,8 @@
 \usage{
 cbalance(formula, data, estimand = c("ATE", "ATT", "ATC"),
   distance = c("entropy", "binary", "shifted"), base_weights = NULL,
-  coefs_init = NULL, control = list(maxit = 500, reltol = 1e-10), ...)
+  coefs_init = NULL, degree = 1, control = list(maxit = 500, reltol =
+  1e-10), ...)
 
 cbalance.fit(constr_mat, target_margins, distance = c("entropy",
   "binary", "shifted"), base_weights = NULL, coefs_init = NULL,

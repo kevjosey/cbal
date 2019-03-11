@@ -2,7 +2,6 @@
 
 export(cbalance)
 export(cbalance.fit)
-export(ks_data)
 export(lagrange_bent)
 export(lagrange_ent)
 export(lagrange_sent)

@@ -28,6 +28,8 @@ cbalance <- function(formula,
                      estimand = c("ATE", "ATT", "ATC"),
                      distance = c("entropy", "binary", "shifted"),
                      base_weights = NULL,
+                     coefs_init = NULL,
+                     degree = 1,
                      control = list(maxit = 500, reltol = 1e-10), 
                      ...) {
   
@@ -37,11 +39,12 @@ cbalance <- function(formula,
   
   y <- as.factor(data[,yname])
   z <- ifelse(y == levels(y)[1], 0, 1)
+  n <- length(z)
   X <- stats::model.matrix(formula, data = data)
   
   # error checks
   if(nlevels(y) != 2L)
-    stop(paste("nlevels(y) != 2\nnlevels = ", nlevels(y)))
+    stop(paste("nlevels(y) != 2\nnlevels =", nlevels(y)))
   
   if (!(estimand %in% c("ATE", "ATT", "ATC")))
     stop("estimand must be either \"ATE\", \"ATT\", or \"ATC\"")
@@ -49,16 +52,15 @@ cbalance <- function(formula,
   if (is.null(base_weights)) { # initialize base_weights
     
     if (distance == "binary")
-      base_weights <- rep(1/2, nrow(X))
+      base_weights <- rep(1/2, n)
     else if (distance == "shifted")
-      base_weights <- rep(2, nrow(X))
+      base_weights <- rep(2, n)
     else # distance == "entropy"
-      base_weights <- rep(1, nrow(X))
+      base_weights <- rep(1, n)
     
-  } 
-  
-  else if (length(base_weights) != nrow(X))
+  } else if (length(base_weights) != n)
     stop("length(base_weights) != sample size")
+  
   
   if (estimand == "ATT") {
     
@@ -77,12 +79,65 @@ cbalance <- function(formula,
     
   }
   
-  cbalance.fit(constr_mat = constr_mat,
-               target_margins = target_margins,
-               base_weights = base_weights,
-               distance = distance,
-               control = control,
-               ...)
+  # try direct optimization
+  cbal_out <- try( cbalance.fit(constr_mat = constr_mat,
+                                target_margins = target_margins,
+                                base_weights = base_weights,
+                                coefs_init = coefs_init,
+                                distance = distance,
+                                control = control, ...),
+                   silent = TRUE )
+  
+  if (!inherits(cbal_out, "try-error")) {
+    
+    weights <- cbal_out$weights
+    converged <- cbal_out$converged
+    
+  }
+  
+  # iterative optimization
+  else if (converged == FALSE | inherits(cbal_out, "try-error")) {
+    
+    converged <- FALSE
+    weights_temp <- base_weights
+    maxit <- control$maxit
+    reltol <- control$reltol
+    
+    for (k in 1:maxit) {
+      
+      vals <- abs(weights_temp %*% constr_mat - target_margins)
+      u <- constr_mat[,which.max(vals)]
+      tm <- target_margins[which.max(vals)]
+      
+      # cbalance to find coefs
+      cbalit <- cbalance.fit(constr_mat = as.matrix(u),
+                             target_margins = tm,
+                             base_weights = weights_temp,
+                             distance = distance,
+                             control = control,
+                             ...)
+      
+      weights <- cbalit$weights
+      
+      if (sum(abs( t(constr_mat) %*% weights - target_margins ) < reltol)) {
+        converged <- TRUE
+        break # indicates convergence
+      }
+      
+      weights_temp <- weights
+      
+    }
+    
+  }
+  
+  cov_dat <- stats::model.frame(formula, data = data)[,-1]
+  
+  out <- list(weights = weights, treat = z, cov_dat = cov_dat, converged = converged,
+              estimand = estimand, distance = distance, base_weights = base_weights, 
+              control = control)
+  
+  class(out) <- "cbalance"
+  return(out)
   
 }
 
