@@ -9,27 +9,16 @@
 #' @export
 cbal_est <- function(obj, Y, ...) {
   
-  if (!inherits(obj, "cbalance") & !inherits(obj, "cboost"))
-    stop("obj must be of class \"cbalance\" or \"cboost\"")
+  if (!inherits(obj, "cbalance"))
+    stop("obj must be of class \"cbalance\"")
   
-  if (inherits(obj, "cbalance")){
-    
-    X <- obj$X
-    est <- obj$estimand
-    dist <- obj$distance
-    
-  } else if (inherits(obj, "cboost")) {
-    
-    X <- obj$weak
-    est <- "ATE"
-    dist <- ifelse(obj$loss == "exp", "ent", "bent")
-    
-  }
-  
+  X <- obj$X
   Z <- obj$Z  
   p <- obj$weights
   q <- obj$base_weights
   coefs <- obj$coefs
+  est <- obj$estimand
+  dist <- obj$distance
   
   tau <- sum((2*Z -1)*p*Y)/sum(p*Z)
   
