@@ -78,7 +78,6 @@ for (i in 1:iter) {
   Z <- dat$z
   Y <- dat$y
   X <- model.matrix(~ ., data = subset(dat, select = c(x1, x2, x3, x4)))
-  n <- length(Y)
   
   fit_ebal <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATE", distance = "shifted")
   fit_cbps <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATE", distance = "binary")
