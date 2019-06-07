@@ -16,8 +16,6 @@ LazyData: yes
 LazyLoad: yes
 NeedsCompilation: no
 Suggests:
-    ATE,
-    knitr,
-    survey
+	knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

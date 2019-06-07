@@ -2,20 +2,20 @@
 % Please edit documentation in R/cbalance.R
 \name{cbalance}
 \alias{cbalance}
-\alias{cbalance.fit}
+\alias{cfit}
 \title{Covariate Balancing Weights via Generalized Projections of Bregman Distances}
 \usage{
 cbalance(formula, data, estimand = c("ATE", "ATT", "ATC"),
   distance = c("entropy", "binary", "shifted"), base_weights = NULL,
-  coefs_init = NULL, degree = 1, control = list(maxit = 500, reltol =
-  1e-10), ...)
+  coefs_init = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10),
+  ...)
 
-cbalance.fit(constr_mat, target_margins, distance = c("entropy",
-  "binary", "shifted"), base_weights = NULL, coefs_init = NULL,
-  control = list(maxit = 500, reltol = 1e-10), ...)
+cfit(constr_mat, target_margins, distance = c("entropy", "binary",
+  "shifted"), base_weights = NULL, coefs_init = NULL,
+  optim_ctrl = list(maxit = 500, reltol = 1e-10), ...)
 }
 \arguments{
-\item{formula}{an object of class formula: a symbolic description of the model to be fitted.}
+\item{formula}{an object of class \code{formula}: a symbolic description of the model to be fitted.}
 
 \item{data}{a \code{data.frame}, list, or environment containing the variables in the model.}
 
@@ -26,16 +26,14 @@ cbalance.fit(constr_mat, target_margins, distance = c("entropy",
 "binary" for the binary relative entropy, or "shifted" for the shifted relative entropy.}
 
 \item{base_weights}{a vector of optional sampling weights with length equal to the
-number of rows in \code{data} or \code{constr_mat}.}
+number of rows in \code{constr_mat} or \code{X}.}
 
-\item{coefs_init}{initial values for the Lagrangian multipliers.}
-
-\item{control}{a list of arguments that will be passed to \code{optim}.}
+\item{optim_ctrl}{a list of arguments that will be passed to \code{optim}.}
 
 \item{...}{additional arguments.}
 
-\item{constr_mat}{a matrix that forms the basis of a linear subspace which defines the equality 
-constraints of the convex program.}
+\item{constr_mat}{a matrix that forms the basis of a linear subspace which define the equality constraints of the
+convex program.}
 
 \item{target_margins}{the target margins of the linear equality constraints. This vector
 should have a length equal to the number of columns in \code{constr_mat}.}
