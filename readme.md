@@ -12,15 +12,6 @@ In its current form, cbal supports three Bregman distances and requires a binary
 In the future, this package will be extended to allow for other criterion distance functions and multivalued
 treatment assignments.
 
-## Vignettes
-
-There is one vignette included with the package. Additional details will be added to this vignette.
-For now, the vignette is empty but soon you should be able to use:
-
-```r
-vignette('cbal-pkg', package = 'cbal')
-```
-
 ## Installing cbal
 Options for installing cbal:
 

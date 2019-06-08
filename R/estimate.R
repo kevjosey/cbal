@@ -3,7 +3,7 @@
 #' This function returns the Horvitz-Thompson estimates and the sandwich variance
 #' estimate from an object of type \code{cbalance}. 
 #' 
-#' @param obj object of class "cbalance" or "cboost".
+#' @param obj object of class "cbalance".
 #' @param Y numeric outcome vector.
 #' 
 #' @export
