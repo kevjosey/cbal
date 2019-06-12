@@ -62,7 +62,7 @@ cbalance <- function(formula,
     
   } else if (length(base_weights) != n)
     stop("length(base_weights) != sample size")
-
+  
   if (is.null(coefs_init))
     coefs_init <- rep(0, times = m) # initialize coefs
   else if (length(coefs_init) != m)
@@ -146,13 +146,11 @@ cbalance <- function(formula,
   if (!converged)
     warning("model failed to converge")
   
-  
-  est <- sum((2*Z -1)*weights*Y)/sum(weights*Z)
-
   out <- list(weights = weights,
               coefs = coefs,
               converged = converged,
-              Z = Z, X = X,
+              formula = formula,
+              data = data,
               estimand = estimand,
               distance = distance,
               base_weights = base_weights,
@@ -213,7 +211,16 @@ cfit <- function(constr_mat,
   else if (length(coefs_init) != ncol(constr_mat))
     stop("length(coefs_init) != ncol(constr_mat)")
   
-  chkDots(...)
+  extraArgs <- list(...)
+  
+  if (length(extraArgs)) {
+    
+    arg <- names(formals(stats::optim))
+    indx <- match(names(extraArgs), arg, nomatch = 0)
+    if (any(indx == 0)) 
+      stop(paste("Argument", names(extraArgs)[indx == 0], "not matched"))
+    
+  }
   
   opt <- stats::optim(coefs_init, fn, method = "BFGS",
                       constr_mat = constr_mat,
