@@ -64,12 +64,41 @@ NULL
 
 #' @rdname estimate
 #' @export
-est_eq <- function(X, Y, Z, weights, tau) {
+esteq <- function(X, Y, Z, weights, tau) {
   
   eq1 <- (2*Z - 1)*weights*X
   eq2 <- Z*weights*(Y - tau) - (1 - Z)*weights*Y
   
   eq <- c(eq1, eq2) 
   return(eq)
+  
+}
+
+#' Bootstrap Indices
+#' 
+#' Produces a vector of indices which are utilized in the bootstrap
+#' variance estimation functioniality of \code{cestimate()}.
+#'
+#' @param Z treatment assignment vector.
+#' @param boot_frac The minimum proportion of entries from each treatment group represented
+#' in the bootstrap resample.
+#'
+#' @export
+bootit <- function(Z, boot_frac) {
+  
+  n <- length(Z)
+  tmin <- ifelse(floor(n*boot_frac) < 1, 1, floor(n*boot_frac))
+  tmin <- ifelse(tmin >= sum(Z) | tmin >= sum(1 - Z), min(sum(1 - Z), sum(Z)), tmin)
+  
+  tidx <- which(Z == 1)
+  idx1 <- sample(tidx, size = tmin, replace = TRUE)
+  
+  cidx <- which(Z == 0)
+  idx2 <- sample(cidx, size = tmin, replace = TRUE)
+  
+  idx_tmp <- c(idx1, idx2)
+  
+  idx3 <- sample.int(n, size = n - length(idx_tmp), replace = TRUE)
+  idx <- c(idx_tmp, idx3)
   
 }

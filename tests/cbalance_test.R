@@ -4,13 +4,6 @@
 ###################################
 
 library(cbal)
-library(survey)
-
-tau <- 20
-sig2 <- 5
-rho <- 0
-n <- 1000
-iter <- 1000
 
 # simulate scenarios
 ks_data <- function(tau, n, sig2, rho, y_scen = c("a", "b"), z_scen = c("a", "b")) {
@@ -64,6 +57,12 @@ ks_data <- function(tau, n, sig2, rho, y_scen = c("a", "b"), z_scen = c("a", "b"
 
 set.seed(07271989)
 
+tau <- 20
+sig2 <- 5
+rho <- 0
+n <- 1000
+iter <- 1000
+
 # simulate array of data
 simDat <- replicate(iter, ks_data(n = n, tau = tau, sig2 = sig2, rho = rho, y_scen = "a", z_scen = "a"))
 
@@ -81,15 +80,15 @@ for (i in 1:iter) {
   
   fit_ebal <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATT", distance = "entropy")
   fit_cbps <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATE", distance = "binary")
-  est_ebal <- cbal_est(fit_ebal, Y = Y) 
-  est_cbps <- cbal_est(fit_cbps, Y = Y) 
+  est_ebal <- cestimate(fit_ebal, Y = Y, method = "sandwich") 
+  est_cbps <- cestimate(fit_cbps, Y = Y, method = "sandwich") 
   
   tau_cbps[i] <- est_cbps$tau
-  var_cbps[i] <- est_cbps$var
+  var_cbps[i] <- est_cbps$variance
   cp_cbps[i] <- tau_cbps[i] - sqrt(var_cbps[i])*1.96 <= tau & tau_cbps[i] + sqrt(var_cbps[i])*1.96 >= tau
   
   tau_ebal[i] <- est_ebal$tau
-  var_ebal[i] <- est_ebal$var
+  var_ebal[i] <- est_ebal$variance
   cp_ebal[i] <- tau_ebal[i] - sqrt(var_ebal[i])*1.96 <= tau & tau_ebal[i] + sqrt(var_ebal[i])*1.96 >= tau
   
 }
