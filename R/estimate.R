@@ -85,7 +85,7 @@ cestimate <- function(obj, Y, method = c("sandwich", "bootstrap"),
     if (length(boot_frac) != 1 | boot_frac <= 0 | boot_frac > 1)
       stop("boot_frac must be a scalar between 0 and 1")
     
-    boot_idx <- replicate(boot_iter, bootit(Z, frac = 0.1))
+    boot_idx <- replicate(boot_iter, bootit(Z, boot_frac = boot_frac))
     boot_est <- apply( boot_idx, 2, function(idx, obj, Y, Z) {
       
       fit <- cbalance(formula = obj$formula, data = obj$data[idx, ], 
