@@ -15,7 +15,7 @@ cestimate <- function(obj, Y, method = c("sandwich", "bootstrap"),
                       boot_iter = 1000, boot_frac = 0.1, ...) {
   
   if (!inherits(obj, "cbalance"))
-    stop("obj must be of class \"cbalance\" or \"cboost\"")
+    stop("obj must be of class \"cbalance\"")
   
   if (!(method %in% c("sandwich", "bootstrap")))
     stop("method must be either \"sandwich\" or \"bootstrap\"")

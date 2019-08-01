@@ -61,7 +61,7 @@ tau <- 20
 sig2 <- 5
 rho <- 0
 n <- 1000
-iter <- 1000
+iter <- 100
 
 # simulate array of data
 simDat <- replicate(iter, ks_data(n = n, tau = tau, sig2 = sig2, rho = rho, y_scen = "a", z_scen = "a"))

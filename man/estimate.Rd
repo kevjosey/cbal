@@ -2,10 +2,10 @@
 % Please edit documentation in R/other.R
 \name{estimate}
 \alias{estimate}
-\alias{est_eq}
+\alias{esteq}
 \title{Horvitz-Thompson Estimating Equations}
 \usage{
-est_eq(X, Y, Z, weights, tau)
+esteq(X, Y, Z, weights, tau)
 }
 \arguments{
 \item{X}{design matrix.}
