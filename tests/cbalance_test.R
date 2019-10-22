@@ -49,7 +49,7 @@ ks_data <- function(tau, n, sig2, rho, y_scen = c("a", "b"), z_scen = c("a", "b"
   y <- z*y_pot[,2] + (1 - z)*y_pot[,1]
   
   # create simulation dataset
-  sim <- data.frame(y, z, x1, x2, x3, x4, u1, u2, u3, u4)
+  sim <- data.frame(y = y, z = z, x1 = x1, x2 = x2, x3 = x3, x4 = x4, ps = e_X)
   
   return(sim)
   
@@ -61,15 +61,15 @@ tau <- 20
 sig2 <- 5
 rho <- 0
 n <- 1000
-iter <- 100
+iter <- 10
 
 # simulate array of data
 simDat <- replicate(iter, ks_data(n = n, tau = tau, sig2 = sig2, rho = rho, y_scen = "a", z_scen = "a"))
 
-# fit along with ebal
-tau_ebal <- tau_cbps <- vector(mode = "numeric", length = iter)
-var_ebal <- var_cbps <- vector(mode = "numeric", length = iter)
-cp_ebal <- cp_cbps <- vector(mode = "numeric", length = iter)
+# fit along with sent
+tau_sent <- tau_bent <- vector(mode = "numeric", length = iter)
+var_sent <- var_bent <- vector(mode = "numeric", length = iter)
+cp_sent <- cp_bent <- vector(mode = "numeric", length = iter)
 
 for (i in 1:iter) {
   
@@ -78,22 +78,22 @@ for (i in 1:iter) {
   Y <- dat$y
   X <- model.matrix(~ ., data = subset(dat, select = c(x1, x2, x3, x4)))
   
-  fit_ebal <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATT", distance = "entropy")
-  fit_cbps <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, estimand = "ATE", distance = "binary")
-  est_ebal <- cestimate(fit_ebal, Y = Y, method = "sandwich") 
-  est_cbps <- cestimate(fit_cbps, Y = Y, method = "sandwich") 
+  fit_sent <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, distance = "shifted")
+  fit_bent <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, distance = "binary")
+  est_sent <- cestimate(fit_sent, Y = Y, method = "bootstrap") 
+  est_bent <- cestimate(fit_bent, Y = Y, method = "bootstrap") 
   
-  tau_cbps[i] <- est_cbps$tau
-  var_cbps[i] <- est_cbps$variance
-  cp_cbps[i] <- tau_cbps[i] - sqrt(var_cbps[i])*1.96 <= tau & tau_cbps[i] + sqrt(var_cbps[i])*1.96 >= tau
+  tau_bent[i] <- est_bent$tau
+  var_bent[i] <- est_bent$variance
+  cp_bent[i] <- tau_bent[i] - sqrt(var_bent[i])*1.96 <= tau & tau_bent[i] + sqrt(var_bent[i])*1.96 >= tau
   
-  tau_ebal[i] <- est_ebal$tau
-  var_ebal[i] <- est_ebal$variance
-  cp_ebal[i] <- tau_ebal[i] - sqrt(var_ebal[i])*1.96 <= tau & tau_ebal[i] + sqrt(var_ebal[i])*1.96 >= tau
+  tau_sent[i] <- est_sent$tau
+  var_sent[i] <- est_sent$variance
+  cp_sent[i] <- tau_sent[i] - sqrt(var_sent[i])*1.96 <= tau & tau_sent[i] + sqrt(var_sent[i])*1.96 >= tau
   
 }
 
-mean(tau_ebal)
-mean(tau_cbps)
-mean(cp_ebal)
-mean(cp_cbps)
+mean(tau_sent)
+mean(tau_bent)
+mean(cp_sent)
+mean(cp_bent)

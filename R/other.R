@@ -7,45 +7,45 @@
 #' Use \code{lagrange_sent} for the shifted unnormalized relative entropy.
 #'
 #' @param coefs vector of Lagrangian multipliers.
-#' @param constr_mat a matrix that determines the basis of a linear subspace which define the equality constraints 
+#' @param cmat a matrix that determines the basis of a linear subspace which define the equality constraints 
 #' of the optimization problem.
-#' @param target_margins the target margins of the linear equality constraints. This vector 
-#' should have a length equal to the number of columns in \code{constr_mat}.
+#' @param target the target margins of the linear equality constraints. This vector 
+#' should have a length equal to the number of columns in \code{cmat}.
 #' @param base_weights a vector of sampling weights with length equal to the 
-#' number of rows in \code{constr_mat}.
+#' number of rows in \code{cmat}.
 #'
 #' @name lagrange
 NULL
 
 #' @rdname lagrange
 #' @export
-lagrange_ent <- function(coefs, constr_mat, target_margins, base_weights) {
-
-  temp <- sum(base_weights*exp(-constr_mat %*% coefs))
-  out <- temp + sum(target_margins * coefs)
+lagrange_ent <- function(coefs, cmat, target, base_weights) {
+  
+  temp <- sum(base_weights*exp(-cmat %*% coefs))
+  out <- temp + sum(target * coefs)
   return(out)
-
+  
 }
 
 #' @rdname lagrange
 #' @export
-lagrange_bent <- function(coefs, constr_mat, target_margins, base_weights) {
-
-  weights <- c( base_weights / (base_weights + (1 - base_weights)*exp(constr_mat %*% coefs)) )
+lagrange_bent <- function(coefs, cmat, target, base_weights) {
+  
+  weights <- c( base_weights / (base_weights + (1 - base_weights)*exp(cmat %*% coefs)) )
   temp <- sum(weights*log(weights/base_weights) + (1 - weights)*log((1 - weights)/(1 - base_weights)))
-  out <- -temp - sum(weights * constr_mat %*% coefs) + sum(target_margins * coefs)
+  out <- -temp - sum(weights * cmat %*% coefs) + sum(target * coefs)
   return(out)
-
+  
 }
 
 #' @rdname lagrange
 #' @export
-lagrange_sent <- function(coefs, constr_mat, target_margins, base_weights) {
-
-  temp <- sum(constr_mat %*% coefs - (base_weights - 1)*exp(-constr_mat %*% coefs))
-  out <- -temp + sum(target_margins * coefs)
+lagrange_sent <- function(coefs, cmat, target, base_weights) {
+  
+  temp <- sum(cmat %*% coefs - (base_weights - 1)*exp(-cmat %*% coefs))
+  out <- -temp + sum(target * coefs)
   return(out)
-
+  
 }
 
 #' Horvitz-Thompson Estimating Equations
@@ -64,12 +64,25 @@ NULL
 
 #' @rdname estimate
 #' @export
-esteq <- function(X, Y, Z, weights, tau) {
+esteq_ATE <- function(X, Y, Z, weights, tau) {
   
   eq1 <- (2*Z - 1)*weights*X
   eq2 <- Z*weights*(Y - tau) - (1 - Z)*weights*Y
   
   eq <- c(eq1, eq2) 
+  return(eq)
+  
+}
+
+#' @rdname estimate
+#' @export
+esteq_HTE <- function(X, Y, Z, weights, base_weights, tau) {
+  
+  eq1 <- (2*Z - 1)*weights*X
+  eq2 <- Z*weights*X - base_weights*X
+  eq3 <- Z*weights*(Y - tau) - (1 - Z)*weights*Y
+  
+  eq <- c(eq1, eq2, eq3) 
   return(eq)
   
 }
@@ -80,15 +93,9 @@ esteq <- function(X, Y, Z, weights, tau) {
 #' variance estimation functioniality of \code{cestimate()}.
 #'
 #' @param Z treatment assignment vector.
-#' @param boot_frac The minimum proportion of entries from each treatment group represented
-#' in the bootstrap resample.
 #'
 #' @export
-bootit <- function(Z, boot_frac) {
-  
-  n <- length(Z)
-  tmin <- ifelse(floor(n*boot_frac) < 1, 1, floor(n*boot_frac))
-  tmin <- ifelse(tmin >= sum(Z) | tmin >= sum(1 - Z), min(sum(1 - Z), sum(Z)), tmin)
+bootit <- function(Z) {
   
   tidx <- which(Z == 1)
   idx1 <- sample(tidx, size = tmin, replace = TRUE)
