@@ -5,38 +5,38 @@
 \alias{cfit}
 \title{Covariate Balancing Weights via Generalized Projections of Bregman Distances}
 \usage{
-cbalance(formula, data, estimand = c("ATE", "ATT", "ATC"),
-  distance = c("entropy", "binary", "shifted"), base_weights = NULL,
-  coefs_init = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10),
-  ...)
+cbalance(formula, data, distance = c("entropy", "binary", "shifted"),
+  base_weights = NULL, coefs_init = NULL, optim_ctrl = list(maxit =
+  500, reltol = 1e-10), ...)
 
-cfit(constr_mat, target_margins, distance = c("entropy", "binary",
-  "shifted"), base_weights = NULL, coefs_init = NULL,
-  optim_ctrl = list(maxit = 500, reltol = 1e-10), ...)
+cfit(cmat, target, distance = c("entropy", "binary", "shifted"),
+  base_weights = NULL, coefs_init = NULL, optim_ctrl = list(maxit =
+  500, reltol = 1e-10), ...)
 }
 \arguments{
 \item{formula}{an object of class \code{formula}: a symbolic description of the model to be fitted.}
 
 \item{data}{a \code{data.frame}, list, or environment containing the variables in the model.}
 
-\item{estimand}{the assumed causal effect estimand. Can either be "ATE" for the average treatment effect,
-"ATT" for the average treatment effect of the treated, or "ATC" for the average treatment effect of the controls.}
-
 \item{distance}{the Bregman distance to be optimized. Can either be "entropy" for the relative entropy,
-"binary" for the binary relative entropy, or "shifted" for the shifted relative entropy.}
+"binary" for the binary relative entropy, or "shifted" for the shifted relative entropy. The distance also determines
+the causal effect estimand. "shifted" produces balancing weights for estimating the average treatment effect,
+"entropy" for the average treatment effect of the treated, and "binary" for a constant conditional average treatment effect.}
 
 \item{base_weights}{a vector of optional sampling weights with length equal to the
-number of rows in \code{constr_mat} or \code{X}.}
+number of rows in \code{cmat} or \code{X}.}
+
+\item{coefs_init}{optional initialization points for the dual variables. Defaults to a vector of zeros.}
 
 \item{optim_ctrl}{a list of arguments that will be passed to \code{optim}.}
 
 \item{...}{additional arguments.}
 
-\item{constr_mat}{a matrix that forms the basis of a linear subspace which define the equality constraints of the
+\item{cmat}{a matrix that forms the basis of a linear subspace which define the equality constraints of the
 convex program.}
 
-\item{target_margins}{the target margins of the linear equality constraints. This vector
-should have a length equal to the number of columns in \code{constr_mat}.}
+\item{target}{the target margins of the linear equality constraints. This vector
+should have a length equal to the number of columns in \code{cmat}.}
 }
 \description{
 The \code{cbalance()} function solves a convex program with linear equality constraints determined by the

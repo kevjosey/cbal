@@ -4,13 +4,10 @@
 \alias{bootit}
 \title{Bootstrap Indices}
 \usage{
-bootit(Z, boot_frac)
+bootit(Z)
 }
 \arguments{
 \item{Z}{treatment assignment vector.}
-
-\item{boot_frac}{The minimum proportion of entries from each treatment group represented
-in the bootstrap resample.}
 }
 \description{
 Produces a vector of indices which are utilized in the bootstrap

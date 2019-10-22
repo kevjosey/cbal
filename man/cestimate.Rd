@@ -5,21 +5,18 @@
 \title{Function for Estimating Causal Effects with \code{cbal}.}
 \usage{
 cestimate(obj, Y, method = c("sandwich", "bootstrap"),
-  boot_iter = 1000, boot_frac = 0.1, ...)
+  boot_iter = 1000, ...)
 }
 \arguments{
-\item{obj}{object of class "cbalance" or "cboost".}
+\item{obj}{object of class "cbalance".}
 
-\item{Y}{numeric outcome vector. The average effect is usually calculated.}
+\item{Y}{numeric outcome vector.}
 
 \item{method}{method for estimating the variance of the treatment effect estimate.}
 
 \item{boot_iter}{the number of bootstrap resamples if method = "bootstrap" is selected.}
-
-\item{boot_frac}{The minimum proportion of entries from each treatment group represented
-in the bootstrap resample.}
 }
 \description{
-This function returns the Horvitz-Thompson estimates and either the sandwich variance
-estimate or a bootstrapped variance estimate from an object of type \code{cbalance}.
+This function returns the Horvitz-Thompson estimates and the sandwich variance
+estimate from an object of type \code{cbalance}.
 }

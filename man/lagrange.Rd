@@ -7,23 +7,23 @@
 \alias{lagrange_sent}
 \title{Langrangian Functions for Bregman Distances with Linear Equality Constraints}
 \usage{
-lagrange_ent(coefs, constr_mat, target_margins, base_weights)
+lagrange_ent(coefs, cmat, target, base_weights)
 
-lagrange_bent(coefs, constr_mat, target_margins, base_weights)
+lagrange_bent(coefs, cmat, target, base_weights)
 
-lagrange_sent(coefs, constr_mat, target_margins, base_weights)
+lagrange_sent(coefs, cmat, target, base_weights)
 }
 \arguments{
 \item{coefs}{vector of Lagrangian multipliers.}
 
-\item{constr_mat}{a matrix that determines the basis of a linear subspace which define the equality constraints 
+\item{cmat}{a matrix that determines the basis of a linear subspace which define the equality constraints 
 of the optimization problem.}
 
-\item{target_margins}{the target margins of the linear equality constraints. This vector 
-should have a length equal to the number of columns in \code{constr_mat}.}
+\item{target}{the target margins of the linear equality constraints. This vector 
+should have a length equal to the number of columns in \code{cmat}.}
 
 \item{base_weights}{a vector of sampling weights with length equal to the 
-number of rows in \code{constr_mat}.}
+number of rows in \code{cmat}.}
 }
 \description{
 Use \code{lagrange_ent} for the unnormalized relative entropy.

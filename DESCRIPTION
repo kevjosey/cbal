@@ -1,6 +1,6 @@
 Package: cbal
 Title: Covariate Balancing Weights using Generalized Projections of Bregman Distances
-Version: 0.2.2
+Version: 0.3.1
 Authors@R:
     c(person("Kevin", "Josey", email = "kevin.josey@ucdenver.edu", role = c("aut", "cre")),
       person("Juarez-Colunga", "Elizabeth", email = "elizabeth.juarez-colunga@ucdenver.edu", role = c("ths")),
