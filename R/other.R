@@ -98,10 +98,10 @@ esteq_HTE <- function(X, Y, Z, weights, base_weights, tau) {
 bootit <- function(Z) {
   
   tidx <- which(Z == 1)
-  idx1 <- sample(tidx, size = tmin, replace = TRUE)
+  idx1 <- sample(tidx, size = 1, replace = TRUE)
   
   cidx <- which(Z == 0)
-  idx2 <- sample(cidx, size = tmin, replace = TRUE)
+  idx2 <- sample(cidx, size = 1, replace = TRUE)
   
   idx_tmp <- c(idx1, idx2)
   
