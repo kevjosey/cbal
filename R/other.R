@@ -104,6 +104,7 @@ bootit <- function(Z) {
   idx2 <- sample(cidx, size = 1, replace = TRUE)
   
   idx_tmp <- c(idx1, idx2)
+  n <- length(Z)
   
   idx3 <- sample.int(n, size = n - length(idx_tmp), replace = TRUE)
   idx <- c(idx_tmp, idx3)

@@ -61,7 +61,7 @@ tau <- 20
 sig2 <- 5
 rho <- 0
 n <- 1000
-iter <- 1000
+iter <- 10
 
 # simulate array of data
 simDat <- replicate(iter, ks_data(n = n, tau = tau, sig2 = sig2, rho = rho, y_scen = "a", z_scen = "a"))
@@ -80,8 +80,8 @@ for (i in 1:iter) {
   
   fit_sent <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, distance = "shifted")
   fit_bent <- cbalance(z ~ x1 + x2 + x3 + x4, data = dat, distance = "binary")
-  est_sent <- cestimate(fit_sent, Y = Y, method = "sandwich") 
-  est_bent <- cestimate(fit_bent, Y = Y, method = "sandwich") 
+  est_sent <- cestimate(fit_sent, Y = Y, method = "bootstrap") 
+  est_bent <- cestimate(fit_bent, Y = Y, method = "bootstrap") 
   
   tau_bent[i] <- est_bent$tau
   var_bent[i] <- est_bent$variance
