@@ -14,6 +14,8 @@
 #' @param base_weights a vector of base weights with length equal to the 
 #' number of rows in \code{constraint}.
 #'
+#' @references
+#'
 #' @name lagrange
 NULL
 
@@ -58,7 +60,6 @@ lagrange_sent <- function(coefs, constraint, target, base_weights) {
 #' @param Y the observed responses.
 #' @param Z the binary treatment assignment.
 #' @param p the estimated balancing weights.
-#' @param q the estimated sampling weights.
 #' @param base_weights a vector of base weights with length equal to the 
 #' number of rows in \code{X}.
 #' @param theta target sample means of the balance functions.
@@ -108,39 +109,15 @@ esteq_transport <- function(S, X, Y, Z, p, base_weights, theta, tau) {
 
 #' @rdname esteq
 #' @export
-esteq_fusion <- function(X, Y, Z, S, p, q, base_weights, theta, tau) {
+esteq_fusion <- function(S, X, Y, Z, p, base_weights, theta, tau) {
   
-  eq1 <- p*q*Z*X - theta
-  eq2 <- p*q*(1 - Z)*X - theta
-  eq3 <- S*(q*X - theta)
+  eq1 <- p*Z*X - theta
+  eq2 <- p*(1 - Z)*X - theta
+  eq3 <- S*(p*X - theta)
   eq4 <- (1 - S)*(base_weights*X - theta)
-  eq5 <- p*q*(Z*(Y - tau) - (1 - Z)*Y)
+  eq5 <- p*(Z*(Y - tau) - (1 - Z)*Y)
   
   eq <- c(eq1, eq2, eq3, eq4, eq5) 
   return(eq)
-  
-}
-
-#' Bootstrap Indices
-#' 
-#' Produces a vector of indices which are utilized in the bootstrap
-#' variance estimation functioniality of \code{cestimate()}.
-#'
-#' @param Z the treatment assignment vector.
-#'
-#' @export
-bootit <- function(Z) {
-  
-  tidx <- which(Z == 1)
-  idx1 <- sample(tidx, size = 1, replace = TRUE)
-  
-  cidx <- which(Z == 0)
-  idx2 <- sample(cidx, size = 1, replace = TRUE)
-  
-  idx_tmp <- c(idx1, idx2)
-  n <- length(Z)
-  
-  idx3 <- sample.int(n, size = n - length(idx_tmp), replace = TRUE)
-  idx <- c(idx_tmp, idx3)
   
 }

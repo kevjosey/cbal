@@ -23,7 +23,7 @@
 #' Censor Y, Zenios SA (1998). Parallel Optimization: Theory, Algorithms, and Applications. 1st ed. New York:
 #' Oxford University Press.
 #' 
-#' @rdname cbalance
+#' @rdname cfit
 #' @export
 cfit <- function(constraint, target, distance = c("entropy", "binary", "shifted"), base_weights = NULL,
                  coefs_init = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {

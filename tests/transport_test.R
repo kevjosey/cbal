@@ -86,14 +86,14 @@ iter <- 1000
 n <- 1000
 sig2 <- 10
 s_scen <- "a"
-y_scen <- "b"
-z_scen <- "b"
+y_scen <- "a"
+z_scen <- "a"
 
 simDat <- replicate(iter, gen_data(n = n, sig2 = sig2, s_scen = s_scen, y_scen = y_scen, z_scen))
 
-tau_t <- vector(mode = "numeric", length = iter)
-var_t <- vector(mode = "numeric", length = iter)
-cp_t <- vector(mode = "numeric", length = iter)
+tau_t <- tau_f <- vector(mode = "numeric", length = iter)
+var_t <- var_f <- vector(mode = "numeric", length = iter)
+cp_t <- cp_f <- vector(mode = "numeric", length = iter)
 
 PATE <- mean(do.call(c, simDat[5,]))
 
@@ -107,13 +107,22 @@ for (i in 1:iter) {
   Z1 <- Z[S == 1]
   X <- model.matrix(~ x1 + x2 + x3 + x4, as.data.frame(dat$X))
   
-  fit_t <- transport(S = S, Z1 = Z1, X = X)
+  fit_t <- transport(S = S, X = X, Z1 = Z1)
   est_t <- testimate(fit_t, Y1 = Y1)
   tau_t[i] <- est_t$estimate
   var_t[i] <- est_t$variance
   cp_t[i] <- tau_t[i] - sqrt(var_t[i])*1.96 <= PATE & tau_t[i] + sqrt(var_t[i])*1.96 >= PATE
   
+  fit_f <- fusion(S = S, X = X, Z = Z)
+  est_f <- festimate(fit_f, Y = Y)
+  tau_f[i] <- est_f$estimate
+  var_f[i] <- est_f$variance
+  cp_f[i] <- tau_f[i] - sqrt(var_f[i])*1.96 <= PATE & tau_f[i] + sqrt(var_f[i])*1.96 >= PATE
+  
 }
 
 mean(tau_t)
 mean(cp_t)
+
+mean(tau_f)
+mean(cp_f)

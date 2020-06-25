@@ -1,13 +1,13 @@
 #' Covariate Balancing Weights via Generalized Projections of Bregman Distances
 #'
-#' The \code{cbalance()} function solves a convex program with linear equality constraints determined by the data, the
+#' The \code{balance()} function solves a convex program with linear equality constraints determined by the data, the
 #' estimand (\code{estimand}), and the sampling weights (\code{base_weights}).
 #' 
 #' @param X the balance functions to be contrained.
 #' @param Z the binary treatment assignment. 
 #' @param estimand the causal estimand to be estimated. Must be either "ATE" for the average treatment effect,
 #' "ATT" for the average treatment effect, or "OWATE" for the optimally weighted average treatment effect.
-#' In \code{cbalance()}, the estimand also determines the distance function supplied to \code{cfit()}.
+#' In \code{balance()}, the estimand also determines the distance function supplied to \code{cfit()}.
 #' @param base_weights a vector of optional base weights with length equal to the
 #' number of rows in \code{X}.
 #' @param coefs_init the optional initial values for the dual variables. Default is a vector of zeros with length 
@@ -20,9 +20,9 @@
 #' Censor Y, Zenios SA (1998). Parallel Optimization: Theory, Algorithms, and Applications. 1st ed. New York:
 #' Oxford University Press.
 #'
-#' @rdname cbalance
+#' @rdname balance
 #' @export
-cbalance <- function(X, Y, Z, estimand = c("ATE", "ATT", "OWATE"),
+balance <- function(X, Y, Z, estimand = c("ATE", "ATT", "OWATE"),
                      base_weights = NULL, coefs_init = NULL,
                      optim_ctrl = list(maxit = 500, reltol = 1e-10), 
                      ...) {
@@ -117,7 +117,7 @@ cbalance <- function(X, Y, Z, estimand = c("ATE", "ATT", "OWATE"),
               coefs_init = coefs_init,
               optim_ctrl = optim_ctrl)
   
-  class(out) <- "cbalance"
+  class(out) <- "balance"
   return(out)
   
 }
