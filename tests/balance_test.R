@@ -81,7 +81,7 @@ for (i in 1:iter) {
   X <- model.matrix(~ x1 + x2 + x3 + x4, data = dat)
   
   fit_bent <- balance(Z = Z, X = X, estimand = "OWATE")
-  est_bent <- cestimate(fit_bent, Y = Y, method = "sandwich") 
+  est_bent <- estimate(fit_bent, Y = Y, method = "sandwich") 
   
   tau_bent[i] <- est_bent$estimate
   var_bent[i] <- est_bent$variance
@@ -179,7 +179,7 @@ for (i in 1:iter) {
   X <- model.matrix(~ x1 + x2 + x3 + x4, data = dat)
   
   fit_sent <- balance(Z = Z, X = X, estimand = "ATE")
-  est_sent <- cestimate(fit_sent, Y = Y, method = "sandwich")
+  est_sent <- estimate(fit_sent, Y = Y, method = "sandwich")
   tau_sent[i] <- est_sent$estimate
   var_sent[i] <- est_sent$variance
   cp_sent[i] <- tau_sent[i] - sqrt(var_sent[i])*1.96 <= tau & tau_sent[i] + sqrt(var_sent[i])*1.96 >= tau

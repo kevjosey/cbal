@@ -12,14 +12,11 @@
 #' 
 #' @rdname estimate
 #' @export
-cestimate <- function(obj, Y, ...) {
+estimate <- function(obj, Y, ...) {
   
   if (!inherits(obj, c("balance")))
     stop("obj must be of class \"balance\"")
-  
-  if (!(method %in% c("sandwich", "bootstrap")))
-    stop("method must be either \"sandwich\" or \"bootstrap\"")
-  
+
   if (!obj$converged)
     warning("balance failed to converge, estimates are not guaranteed to be correct")
 
