@@ -1,6 +1,6 @@
 ###################################
-## TITLE: cbalance_test.R        ##
-## PURPOSE: Test run cbalance.R  ##
+## TITLE: balance_test.R        ##
+## PURPOSE: Test run balance.R  ##
 ###################################
 
 library(cbal)
@@ -80,7 +80,7 @@ for (i in 1:iter) {
   Y <- dat$y
   X <- model.matrix(~ x1 + x2 + x3 + x4, data = dat)
   
-  fit_bent <- cbalance(Z = Z, X = X, estimand = "OWATE")
+  fit_bent <- balance(Z = Z, X = X, estimand = "OWATE")
   est_bent <- cestimate(fit_bent, Y = Y, method = "sandwich") 
   
   tau_bent[i] <- est_bent$estimate
@@ -178,7 +178,7 @@ for (i in 1:iter) {
   Z <- dat$z
   X <- model.matrix(~ x1 + x2 + x3 + x4, data = dat)
   
-  fit_sent <- cbalance(Z = Z, X = X, estimand = "ATE")
+  fit_sent <- balance(Z = Z, X = X, estimand = "ATE")
   est_sent <- cestimate(fit_sent, Y = Y, method = "sandwich")
   tau_sent[i] <- est_sent$estimate
   var_sent[i] <- est_sent$variance
