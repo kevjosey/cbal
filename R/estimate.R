@@ -18,7 +18,7 @@
 #' 
 #' @rdname estimate
 #' @export
-estimate <- function(obj, Y, ...) {
+estimate <- function(obj, Y, Y1, ...) {
 
   if (!obj$converged)
     warning("balance failed to converge, estimates are not guaranteed to be correct")

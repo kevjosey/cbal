@@ -4,16 +4,16 @@
 \alias{estimate}
 \title{Function for Estimating Causal Effects using \code{balance}, \code{transport}, and \code{fusion} Objects}
 \usage{
-estimate(obj, Y, ...)
+estimate(obj, Y, Y1, ...)
 }
 \arguments{
 \item{obj}{object of class "balance", "transport", or "fusion".}
 
 \item{Y}{the observed responses.}
 
-\item{...}{additional arguments.}
-
 \item{Y1}{the observed responses for S = 1.}
+
+\item{...}{additional arguments.}
 }
 \description{
 These functions return the causal effect estimates and the sandwich variance
