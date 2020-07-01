@@ -16,16 +16,15 @@
 #' @param ... additional arguments.
 #'
 #' @references
-#'
-#' Censor Y, Zenios SA (1998). Parallel Optimization: Theory, Algorithms, and Applications. 1st ed. New York:
-#' Oxford University Press.
+#' 
+#' Josey KP, Juarez-Colunga E, Yang F, Ghosh D (2020). "A Framework for Covariate Balance using Bregman
+#' Distances." Scandinavian Journal of Statistics, pp. 1-27. doi:10.1111/sjos.12457.
 #'
 #' @rdname balance
 #' @export
 balance <- function(X, Y, Z, estimand = c("ATE", "ATT", "OWATE"),
-                     base_weights = NULL, coefs_init = NULL,
-                     optim_ctrl = list(maxit = 500, reltol = 1e-10), 
-                     ...) {
+                    base_weights = NULL, coefs_init = NULL,
+                    optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {
   
   n <- length(Z)
   m <- ncol(X)

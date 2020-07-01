@@ -3,6 +3,10 @@
 ## PURPOSE: Test run transport.R ##
 ###################################
 
+library(cbal)
+
+# For both fusion() and transport()
+
 gen_data <- function(n, sig2 = 5, y_scen = c("a", "b"), z_scen = c("a", "b"), s_scen = c("a", "b")){
   
   # error variance
@@ -108,13 +112,13 @@ for (i in 1:iter) {
   X <- model.matrix(~ x1 + x2 + x3 + x4, as.data.frame(dat$X))
   
   fit_t <- transport(S = S, X = X, Z1 = Z1)
-  est_t <- testimate(fit_t, Y1 = Y1)
+  est_t <- estimate(fit_t, Y1 = Y1)
   tau_t[i] <- est_t$estimate
   var_t[i] <- est_t$variance
   cp_t[i] <- tau_t[i] - sqrt(var_t[i])*1.96 <= PATE & tau_t[i] + sqrt(var_t[i])*1.96 >= PATE
   
   fit_f <- fusion(S = S, X = X, Z = Z)
-  est_f <- festimate(fit_f, Y = Y)
+  est_f <- estimate(fit_f, Y = Y)
   tau_f[i] <- est_f$estimate
   var_f[i] <- est_f$variance
   cp_f[i] <- tau_f[i] - sqrt(var_f[i])*1.96 <= PATE & tau_f[i] + sqrt(var_f[i])*1.96 >= PATE

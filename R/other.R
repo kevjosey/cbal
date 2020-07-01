@@ -6,7 +6,7 @@
 #'
 #' Use \code{lagrange_sent} for the shifted unnormalized relative entropy.
 #'
-#' @param coefs vector of Lagrangian multipliers (or the dual vector).
+#' @param coefs vector of Lagrangian multipliers (also known as the dual vector).
 #' @param constraint a matrix that determines the basis of a linear subspace which define the equality constraints 
 #' of the optimization problem.
 #' @param target the target margins of the linear equality constraints. This vector 

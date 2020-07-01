@@ -17,6 +17,9 @@
 #' @param ... additional arguments.
 #' 
 #' @references
+#' 
+#' Josey KP, Berkowitz SA, Ghosh D, Raghavan S (2020). "Transporting Experimental Results with Entropy
+#' Balancing." arXiv:2002.07899 [stat].
 #'
 #' @rdname transport
 #' @export
