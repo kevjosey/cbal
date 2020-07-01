@@ -65,7 +65,7 @@ lagrange_sent <- function(coefs, constraint, target, base_weights) {
 #' @param theta target sample means of the balance functions.
 #' @param tau causal effect estimate.
 #'
-#' @name est_eq
+#' @name esteq
 NULL
 
 #' @rdname esteq

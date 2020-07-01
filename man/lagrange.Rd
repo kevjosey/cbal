@@ -7,23 +7,23 @@
 \alias{lagrange_sent}
 \title{Langrangian Functions for Bregman Distances with Linear Equality Constraints}
 \usage{
-lagrange_ent(coefs, cmat, target, base_weights)
+lagrange_ent(coefs, constraint, target, base_weights)
 
-lagrange_bent(coefs, cmat, target, base_weights)
+lagrange_bent(coefs, constraint, target, base_weights)
 
-lagrange_sent(coefs, cmat, target, base_weights)
+lagrange_sent(coefs, constraint, target, base_weights)
 }
 \arguments{
-\item{coefs}{vector of Lagrangian multipliers.}
+\item{coefs}{vector of Lagrangian multipliers (also known as the dual vector).}
 
-\item{cmat}{a matrix that determines the basis of a linear subspace which define the equality constraints 
+\item{constraint}{a matrix that determines the basis of a linear subspace which define the equality constraints 
 of the optimization problem.}
 
 \item{target}{the target margins of the linear equality constraints. This vector 
-should have a length equal to the number of columns in \code{cmat}.}
+should have a length equal to the number of columns in \code{constraint}.}
 
-\item{base_weights}{a vector of sampling weights with length equal to the 
-number of rows in \code{cmat}.}
+\item{base_weights}{a vector of base weights with length equal to the 
+number of rows in \code{constraint}.}
 }
 \description{
 Use \code{lagrange_ent} for the unnormalized relative entropy.
@@ -32,4 +32,7 @@ Use \code{lagrange_ent} for the unnormalized relative entropy.
 Use \code{lagrange_bent} for the binary relative entropy.
 
 Use \code{lagrange_sent} for the shifted unnormalized relative entropy.
+}
+\references{
+
 }
