@@ -6,7 +6,6 @@
 \usage{
 balance(
   X,
-  Y,
   Z,
   estimand = c("ATE", "ATT", "OWATE"),
   base_weights = NULL,

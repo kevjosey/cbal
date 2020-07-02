@@ -22,7 +22,7 @@
 #'
 #' @rdname balance
 #' @export
-balance <- function(X, Y, Z, estimand = c("ATE", "ATT", "OWATE"),
+balance <- function(X, Z, estimand = c("ATE", "ATT", "OWATE"),
                     base_weights = NULL, coefs_init = NULL,
                     optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {
   
