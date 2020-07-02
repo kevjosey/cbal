@@ -3,7 +3,7 @@ Title: Covariate Balancing Weights using Generalized Projections of Bregman Dist
 Version: 0.4.1
 Authors@R:
     c(person("Kevin", "Josey", email = "kevin.josey@cuanschutz.edu", role = c("aut", "cre")),
-    person("Peter", "Dewitt", email = "peter.dewitt@ucuanschutz.edu", role = c("ctb")))
+      person("Peter", "DeWitt", email = "peter.dewitt@cuanschutz.edu", role = c("ctb")))
 Description: Estimates covariate balancing weights using the generalized projection of a Bregman distances.
 Depends:
     R (>= 3.5.0)
