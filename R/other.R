@@ -14,8 +14,6 @@
 #' @param base_weights a vector of base weights with length equal to the 
 #' number of rows in \code{constraint}.
 #'
-#' @references
-#'
 #' @name lagrange
 NULL
 
@@ -65,7 +63,7 @@ lagrange_sent <- function(coefs, constraint, target, base_weights) {
 #' @param theta target sample means of the balance functions.
 #' @param tau causal effect estimate.
 #'
-#' @name est_eq
+#' @name esteq
 NULL
 
 #' @rdname esteq

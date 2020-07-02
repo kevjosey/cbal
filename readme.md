@@ -5,8 +5,8 @@ An R package for finding covariate balancing weights for causal inference.
 These functions find the solution to a convex optimization problem using
 Bregman distances as the criterion function. The balancing weights are evaluated
 as the generalized projection of the sampling weights into an intersection of hyperplanes
-that form the basis of a linear subspace. This linear subspace constrains the moments for the 
-emprical distribution of the covariates to be identical between treatment groups.
+that form the basis of a linear subspace. This linear subspace constrains the moments for the
+empirical distribution of the covariates to be identical between treatment groups.
 
 In its current form, cbal supports three Bregman distances and requires a binary treatment assignment.
 In the future, this package will be extended to allow for other criterion distance functions and multivalued
@@ -31,7 +31,7 @@ install_github("kevjosey/cbal", build_vignettes = TRUE)
 make install
 ```
 
-3. Go to the [release page](https://github.com/kevjosey/cbal/releases) and download 
+3. Go to the [release page](https://github.com/kevjosey/cbal/releases) and download
 the tar.gz file of the version you want to install.
 
   * Install from the command line
@@ -45,3 +45,4 @@ R CMD INSTALL cbal_<version>.tar.gz
 ```r
 install.packages(<path_to_file>, repos = NULL, type = "source")
 ```
+
