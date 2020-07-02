@@ -33,6 +33,3 @@ Use \code{lagrange_bent} for the binary relative entropy.
 
 Use \code{lagrange_sent} for the shifted unnormalized relative entropy.
 }
-\references{
-
-}
