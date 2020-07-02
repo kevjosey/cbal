@@ -40,8 +40,6 @@ transport <- function(S, X, Z1, base_weights = NULL, coefs_init = NULL,
   m <- ncol(X)
   X0 <- X[S == 0,]
   X1 <- X[S == 1,]
-  Y <- rep(1, times = n)
-  Y[S == 1] <- Y1
   Z <- rep(1, times = n)
   Z[S == 1] <- Z1
   distance <- "entropy"
