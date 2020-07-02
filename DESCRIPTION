@@ -13,6 +13,7 @@ LazyData: yes
 LazyLoad: yes
 NeedsCompilation: no
 Suggests:
-	knitr
+	knitr,
+  testthat
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
