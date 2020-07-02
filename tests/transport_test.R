@@ -126,7 +126,11 @@ for (i in 1:iter) {
 }
 
 mean(tau_t)
+# [1] 3.278298
 mean(cp_t)
+# [1] 0.871
 
 mean(tau_f)
+# [1] 3.288937
 mean(cp_f)
+# [1] 0.936
