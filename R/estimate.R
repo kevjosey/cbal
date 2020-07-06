@@ -140,7 +140,7 @@ estimate <- function(obj, Y, Y1, ...) {
     if (length(base_weights) != length(S))
       stop("base_weights must have the same length as S")
     
-    tau <- sum(S*(weights*(2*Z - 1)*Y)/sum(S*Z*weights))
+    tau <- sum((S*weights*(2*Z - 1)*Y)/sum(S*Z*weights))
     
     U <- matrix(0, ncol = 3*m, nrow = 3*m)
     v <- rep(0, times = 3*m + 1)
