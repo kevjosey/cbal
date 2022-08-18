@@ -84,16 +84,14 @@ test_that("transport balance", {
   
   simResult <- lapply(simDat, function(dat) {
     
-    fit_t <- transport(S = dat$s, Z1 = dat$z[dat$s == 1], X = dat$X)
-    est_t <- estimate(fit_t, Y1 = dat$y[dat$s == 1])
-    fit_f <- fusion(S = dat$s, Z = dat$z, X = dat$X)
-    est_f <- estimate(fit_f, Y = dat$y)
-    matrix(c(est_t$estimate, est_f$estimate), nrow = 1, dimnames = list(character(0), c("est_t", "est_f")))
+    fit_t <- transport_ATE(S = dat$s, Z1 = dat$z[dat$s == 1], Y1 = dat$y[dat$s == 1], X = dat$X)
+    fit_f <- fusion_ATE(S = dat$s, Z = dat$z, Y = dat$y, X = dat$X)
+    matrix(c(fit_t$estimate, fit_f$estimate), nrow = 1, dimnames = list(character(0), c("est_t", "est_f")))
     
   })
   
   simResult <- do.call(rbind, simResult)
   
-  testthat::expect_equal(round(colMeans(simResult), 3), c(est_t = 3.337, est_f = 3.220))
+  testthat::expect_equal(round(colMeans(simResult), 3), c(est_t = 3.370, est_f = 3.347))
   
 })

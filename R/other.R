@@ -58,7 +58,7 @@ lagrange_sent <- function(coefs, constraint, target, base_weights) {
 #' @param Y the observed responses.
 #' @param Z the binary treatment assignment.
 #' @param p the estimated balancing weights.
-#' @param base_weights a vector of base weights with length equal to the 
+#' @param q a vector of base weights with length equal to the 
 #' number of rows in \code{X}.
 #' @param theta target sample means of the balance functions.
 #' @param tau causal effect estimate.
@@ -68,7 +68,7 @@ NULL
 
 #' @rdname esteq
 #' @export
-esteq_ATE <- function(X, Y, Z, p, base_weights, tau) {
+esteq_ATE <- function(X, Y, Z, p, tau) {
   
   eq1 <- (2*Z - 1)*p*X
   eq2 <- Z*p*(Y - tau) - (1 - Z)*p*Y
@@ -80,10 +80,10 @@ esteq_ATE <- function(X, Y, Z, p, base_weights, tau) {
 
 #' @rdname esteq
 #' @export
-esteq_HTE <- function(X, Y, Z, p, base_weights, tau) {
+esteq_HTE <- function(X, Y, Z, p, q, tau) {
   
   eq1 <- (2*Z - 1)*p*X
-  eq2 <- Z*p*X - base_weights*X
+  eq2 <- Z*p*X - q*X
   eq3 <- Z*p*(Y - tau) - (1 - Z)*p*Y
   
   eq <- c(eq1, eq2, eq3) 
@@ -93,11 +93,11 @@ esteq_HTE <- function(X, Y, Z, p, base_weights, tau) {
 
 #' @rdname esteq
 #' @export
-esteq_transport <- function(S, X, Y, Z, p, base_weights, theta, tau) {
+esteq_transport <- function(S, X, Y, Z, p, q, theta, tau) {
   
-  eq1 <- S*(Z*p*X - theta)
-  eq2 <- S*((1 - Z)*p*X - theta)
-  eq3 <- (1 - S)*(base_weights*X - theta)
+  eq1 <- S*(2*Z - 1)*p*X
+  eq2 <- S*(p*X - theta)
+  eq3 <- (1 - S)*(q*X - theta)
   eq4 <- S*p*(Z*(Y - tau) - (1 - Z)*Y)
   
   eq <- c(eq1, eq2, eq3, eq4) 
@@ -107,15 +107,16 @@ esteq_transport <- function(S, X, Y, Z, p, base_weights, theta, tau) {
 
 #' @rdname esteq
 #' @export
-esteq_fusion <- function(S, X, Y, Z, p, base_weights, theta, tau) {
+esteq_fusion <- function(S, X, Y, Z, p, q, theta, tau) {
   
-  eq1 <- p*Z*X - theta
-  eq2 <- p*(1 - Z)*X - theta
-  eq3 <- S*(p*X - theta)
-  eq4 <- (1 - S)*(base_weights*X - theta)
-  eq5 <- p*(Z*(Y - tau) - (1 - Z)*Y)
+  eq1 <- S*(Z*p*X - theta)
+  eq2 <- S*((1 - Z)*p*X - theta)
+  eq3 <- (1 - S)*(Z*p*X - theta)
+  eq4 <- (1 - S)*((1 - Z)*p*X - theta)
+  eq5 <- (1 - S)*(q*X - theta)
+  eq6 <- p*(Z*(Y - tau) - (1 - Z)*Y)
   
-  eq <- c(eq1, eq2, eq3, eq4, eq5) 
+  eq <- c(eq1, eq2, eq3, eq4, eq5, eq6) 
   return(eq)
   
 }
