@@ -25,7 +25,7 @@
 #' 
 #' @rdname cfit
 #' @export
-cfit <- function(constraint, target, distance = c("entropy", "binary", "shifted"), base_weights = NULL,
+calibrate <- function(constraint, target, distance = c("entropy", "binary", "shifted"), base_weights = NULL,
                  coefs_init = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {
   
   if (!is.matrix(constraint))

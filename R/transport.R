@@ -57,7 +57,7 @@ transport_ATE <- function(S, X, Y1, Z1, base_weights = NULL, optim_ctrl = list(m
   b <- c(rep(0,m), n1*theta)
   
   # try direct optimization
-  fit_out <- try( cfit(constraint = A,
+  fit_out <- try( calibrate(constraint = A,
                         target = b,
                         base_weights = base_weights,
                         coefs_init = coefs_init,

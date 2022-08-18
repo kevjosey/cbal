@@ -54,7 +54,7 @@ fusion_ATE <- function(S, X, Y, Z, base_weights = NULL, optim_ctrl = list(maxit 
   b <- c(n1*theta, n1*theta, n0*theta, n0*theta)
   
   # try direct optimization
-  fit_out <- try( cfit(constraint = A,
+  fit_out <- try( calibrate(constraint = A,
                        target = b,
                        base_weights = base_weights,
                        coefs_init = coefs_init,
