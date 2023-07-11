@@ -2,12 +2,35 @@
 % Please edit documentation in R/balance.R
 \name{balance}
 \alias{balance}
+\alias{balance_ATE}
+\alias{balance_ATT}
+\alias{balance_OWATE}
 \title{Covariate Balancing Weights via Generalized Projections of Bregman Distances}
 \usage{
-balance(
+balance_ATE(
   X,
+  Y,
   Z,
-  estimand = c("ATE", "ATT", "OWATE"),
+  base_weights = NULL,
+  coefs_init = NULL,
+  optim_ctrl = list(maxit = 500, reltol = 1e-10),
+  ...
+)
+
+balance_ATT(
+  X,
+  Y,
+  Z,
+  base_weights = NULL,
+  coefs_init = NULL,
+  optim_ctrl = list(maxit = 500, reltol = 1e-10),
+  ...
+)
+
+balance_OWATE(
+  X,
+  Y,
+  Z,
   base_weights = NULL,
   coefs_init = NULL,
   optim_ctrl = list(maxit = 500, reltol = 1e-10),
@@ -17,11 +40,9 @@ balance(
 \arguments{
 \item{X}{the balance functions to be contrained.}
 
-\item{Z}{the binary treatment assignment.}
+\item{Y}{the observed responses.}
 
-\item{estimand}{the causal estimand to be estimated. Must be either "ATE" for the average treatment effect,
-"ATT" for the average treatment effect, or "OWATE" for the optimally weighted average treatment effect.
-In \code{balance()}, the estimand also determines the distance function supplied to \code{cfit()}.}
+\item{Z}{the binary treatment assignment.}
 
 \item{base_weights}{a vector of optional base weights with length equal to the
 number of rows in \code{X}.}
@@ -34,10 +55,10 @@ equal to number of columns in \code{X}.}
 \item{...}{additional arguments.}
 }
 \description{
-The \code{balance()} function solves a convex program with linear equality constraints determined by the data, the
-estimand (\code{estimand}), and the sampling weights (\code{base_weights}).
+The \code{balance_ATE()}, \code{balance_ATT()}, and \code{balance_OWATE()} functions solve a convex program with linear equality constraints determined by the data, the
+estimand (ATE, ATT, or OWATE), and the sampling weights (\code{base_weights}).
 }
 \references{
-Josey KP, Juarez-Colunga E, Yang F, Ghosh D (2020). "A Framework for Covariate Balance using Bregman
-Distances." Scandinavian Journal of Statistics, pp. 1-27. doi:10.1111/sjos.12457.
+Josey KP, Juarez-Colunga E, Yang F, Ghosh D (2019). "A Framework for Covariate Balance using Bregman
+Distances." arXiv:1903.00390 [stat].
 }

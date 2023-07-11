@@ -2,25 +2,15 @@
 % Please edit documentation in R/transport.R
 \name{transport}
 \alias{transport}
-\alias{fusion}
-\title{Balancing Weights for Transportability and Data-Fusion}
+\alias{transport_ATE}
+\title{Balancing Weights for Transporting Observational Results}
 \usage{
-transport(
+transport_ATE(
   S,
   X,
+  Y1,
   Z1,
   base_weights = NULL,
-  coefs_init = NULL,
-  optim_ctrl = list(maxit = 500, reltol = 1e-10),
-  ...
-)
-
-fusion(
-  S,
-  X,
-  Z,
-  base_weights = NULL,
-  coefs_init = NULL,
   optim_ctrl = list(maxit = 500, reltol = 1e-10),
   ...
 )
@@ -30,27 +20,26 @@ fusion(
 
 \item{X}{the balance functions to be contrained.}
 
+\item{Y1}{the observed responses for S = 1.}
+
 \item{Z1}{the binary treatment assignment for S = 1.}
 
 \item{base_weights}{a vector of optional base weights with length equal to the
 number of rows in \code{X}.}
 
-\item{coefs_init}{the optional initialization values for the dual variables. Default is a vector of zeros with length 
-equal to number of columns in \code{X}.}
-
 \item{optim_ctrl}{a list of arguments that will be passed to \code{optim()}.}
 
 \item{...}{additional arguments.}
-
-\item{Z}{the binary treatment assignment.}
 }
 \description{
-The \code{transport()} and \code{fusion()} functions find balancing weights for transporting estimates. The transport 
+The \code{transport_ATE()} function find balancing weights for transporting estimates. Transport weights 
 requires the complete individual-level data (response, treatment assignment, and covariates) for all units in the observed
-sample but only the individual-level covariate data from the target sample. The fusion function requires complete individual-level
-data from both samples.
+sample but only the individual-level covariate data from the target sample.
 }
 \references{
-Josey KP, Berkowitz SA, Ghosh D, Raghavan S (2020). "Transporting Experimental Results with Entropy
+Josey KP, Berkowitz SA, Ghosh D, Raghavan S (2020a). "Transporting Experimental Results with Entropy
 Balancing." arXiv:2002.07899 [stat].
+
+Josey KP, Yang F, Ghosh D, Raghavan S (2020b). "A Calibration Approach to Transportability and 
+Data-Fusion with Observational Data." arXiv:2008.06615 [stat].
 }

@@ -8,13 +8,13 @@
 \alias{esteq_fusion}
 \title{Horvitz-Thompson Estimating Equations}
 \usage{
-esteq_ATE(X, Y, Z, p, base_weights, tau)
+esteq_ATE(X, Y, Z, p, tau)
 
-esteq_HTE(X, Y, Z, p, base_weights, tau)
+esteq_HTE(X, Y, Z, p, q, tau)
 
-esteq_transport(S, X, Y, Z, p, base_weights, theta, tau)
+esteq_transport(S, X, Y, Z, p, q, theta, tau)
 
-esteq_fusion(S, X, Y, Z, p, base_weights, theta, tau)
+esteq_fusion(S, X, Y, Z, p, q, theta, tau)
 }
 \arguments{
 \item{X}{the balance functions to be contrained.}
@@ -25,10 +25,10 @@ esteq_fusion(S, X, Y, Z, p, base_weights, theta, tau)
 
 \item{p}{the estimated balancing weights.}
 
-\item{base_weights}{a vector of base weights with length equal to the 
-number of rows in \code{X}.}
-
 \item{tau}{causal effect estimate.}
+
+\item{q}{a vector of base weights with length equal to the 
+number of rows in \code{X}.}
 
 \item{S}{the binary vector of sample indicators.}
 
