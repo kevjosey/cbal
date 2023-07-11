@@ -21,6 +21,9 @@
 #' Josey KP, Yang F, Ghosh D, Raghavan S (2020b). "A Calibration Approach to Transportability and 
 #' Data-Fusion with Observational Data." arXiv:2008.06615 [stat].
 #'
+#' @name transport
+NULL
+
 #' @rdname transport
 #' @export
 transport_ATE <- function(S, X, Y1, Z1, base_weights = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {

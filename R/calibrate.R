@@ -1,8 +1,8 @@
 #' Constrained Convex Optimization of Bregman Distances
 #'
-#' The \code{cfit()} function solves a convex program with linear equality constraints determined by the 
+#' The \code{calibrate()} function solves a convex program with linear equality constraints determined by the 
 #' constraint matrix \code{constraint}, the estimand (\code{estimand}), and the sampling weights (\code{base_weights}).
-#' The function \code{cfit()} provides a more direct means to solving the convex optimization program. However, 
+#' The function \code{calibrate()} provides a more direct means to solving the convex optimization program. However, 
 #' the constraint matrix and target margins must be determined by the user.
 #' 
 #' @param constraint a matrix that forms the basis of a linear subspace which define the equality constraints of the
@@ -23,7 +23,7 @@
 #' Censor Y, Zenios SA (1998). Parallel Optimization: Theory, Algorithms, and Applications. 1st ed. New York:
 #' Oxford University Press.
 #' 
-#' @rdname cfit
+#' @rdname calibrate
 #' @export
 calibrate <- function(constraint, target, distance = c("entropy", "binary", "shifted"), base_weights = NULL,
                  coefs_init = NULL, optim_ctrl = list(maxit = 500, reltol = 1e-10), ...) {
@@ -107,7 +107,7 @@ calibrate <- function(constraint, target, distance = c("entropy", "binary", "shi
               coefs_init = coefs_init,
               optim_ctrl = optim_ctrl)
   
-  class(out) <- "cfit"
+  class(out) <- "calibrate"
   return(out)
   
 }

@@ -53,7 +53,7 @@ test_that("homogeneous balance", {
   
   simResult <- lapply(simDat, function(dat) {
       
-    fit_bent <- balance_ATE(Z = dat$z, Y = dat$y, X = model.matrix( ~ x1 + x2 + x3 + x4, data = dat), estimand = "OWATE")
+    fit_bent <- balance_OWATE(Z = dat$z, Y = dat$y, X = model.matrix( ~ x1 + x2 + x3 + x4, data = dat))
     fit_bent$estimate
     
   })
@@ -129,7 +129,7 @@ test_that("heterogeneous balance", {
   
   simResult <- lapply(simDat, function(dat) {
     
-    fit_sent <- balance_ATE(Z = dat$z, Y = dat$y, X = model.matrix( ~ x1 + x2 + x3 + x4, data = dat), estimand = "ATE")
+    fit_sent <- balance_ATE(Z = dat$z, Y = dat$y, X = model.matrix( ~ x1 + x2 + x3 + x4, data = dat))
     fit_sent$estimate
     
   })
